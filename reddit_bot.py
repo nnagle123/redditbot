@@ -1,20 +1,29 @@
 import praw
 import config
+import time
 
 def bot_login():
+    print "Logging in..."
     r = praw.Reddit(username = config.username,
             password = config.password,
             client_id = config.client_id,
             client_secret = config.client_secret,
             user_agent = "WSB to the moon bot v0.1")
-
+    print "Logged in!"
     return r
 
 def run_bot(r):
+    print "Obtaining 5 comments..."
     for comment in r.subreddit('test').comments(limit=5):
         if "dog" in comment.body:
             print "String found!"
+            comment.reply("I also love dogs!")
 
+    print "Sleeping for 10 seconds..."
+    #Sleep for 10 seconds...
+    time.sleep(10)
+
+while True:
 r = bot_login()
 run_bot(r)
 
